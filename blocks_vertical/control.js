@@ -237,7 +237,16 @@ Blockly.Blocks['control_wait'] = {
       "args0": [
         {
           "type": "input_value",
-          "name": "DURATION"
+          "name": "DURATION",
+
+        },
+        {
+          "type": "field_dropdown",
+          "name": "SECOND",
+          "options": [
+            [Blockly.Msg.CONTROL_WAIT_SECOND, "s"],
+            [Blockly.Msg.CONTROL_WAIT_MSECOND, "ms"]
+          ]
         }
       ],
       "category": Blockly.Categories.control,
