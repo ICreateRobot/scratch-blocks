@@ -195,6 +195,25 @@ Blockly.Blocks['operator_equals'] = {
     });
   }
 };
+Blockly.Blocks['operator_notnone'] = {
+  /**
+   * Block for equals comparator.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.OPERATORS_NOTNULL,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "CONTENT"
+        },
+      ],
+      "category": Blockly.Categories.operators,
+      "extensions": ["colours_operators", "output_boolean"]
+    });
+  }
+};
 
 Blockly.Blocks['operator_gt'] = {
   /**
