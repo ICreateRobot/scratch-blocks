@@ -43,6 +43,9 @@ Blockly.Msg.CONTROL_STOP_ALL = 'all';
 Blockly.Msg.CONTROL_STOP_THIS = 'this script';
 Blockly.Msg.CONTROL_STOP_OTHER = 'other scripts in sprite';
 Blockly.Msg.CONTROL_WAIT = 'wait %1 seconds';
+Blockly.Msg.CONTROL_WAIT= "wait %1 %2";
+Blockly.Msg.CONTROL_WAIT_SECOND="second";
+Blockly.Msg.CONTROL_WAIT_MSECOND="millisecond";
 Blockly.Msg.CONTROL_WAITUNTIL = 'wait until %1';
 Blockly.Msg.CONTROL_REPEATUNTIL = 'repeat until %1';
 Blockly.Msg.CONTROL_WHILE = 'while %1';
@@ -77,6 +80,7 @@ Blockly.Msg.DATA_INDEX_LAST = 'last';
 Blockly.Msg.DATA_INDEX_RANDOM = 'random';
 
 // Event blocks
+Blockly.Msg.EVENT_START = 'start';
 Blockly.Msg.EVENT_WHENFLAGCLICKED = 'when %1 clicked';
 Blockly.Msg.EVENT_WHENTHISSPRITECLICKED = 'when this sprite clicked';
 Blockly.Msg.EVENT_WHENSTAGECLICKED = 'when stage clicked';
@@ -141,6 +145,7 @@ Blockly.Msg.LOOKS_PREVIOUSBACKDROP = 'previous backdrop';
 Blockly.Msg.LOOKS_RANDOMBACKDROP = 'random backdrop';
 
 // Motion blocks
+Blockly.Msg.MOTION_MOVE = 'move %1 ';
 Blockly.Msg.MOTION_MOVESTEPS = 'move %1 steps';
 Blockly.Msg.MOTION_TURNLEFT = 'turn %1 %2 degrees';
 Blockly.Msg.MOTION_TURNRIGHT = 'turn %1 %2 degrees';
@@ -189,6 +194,7 @@ Blockly.Msg.OPERATORS_RANDOM = 'pick random %1 to %2';
 Blockly.Msg.OPERATORS_GT = '%1 > %2';
 Blockly.Msg.OPERATORS_LT = '%1 < %2';
 Blockly.Msg.OPERATORS_EQUALS = '%1 = %2';
+Blockly.Msg.OPERATORS_NOTNULL="%1 Non-null";
 Blockly.Msg.OPERATORS_AND = '%1 and %2';
 Blockly.Msg.OPERATORS_OR = '%1 or %2';
 Blockly.Msg.OPERATORS_NOT = 'not %1';
@@ -238,6 +244,7 @@ Blockly.Msg.SENSING_ASKANDWAIT = 'ask %1 and wait';
 Blockly.Msg.SENSING_ASK_TEXT = 'What\'s your name?';
 Blockly.Msg.SENSING_ANSWER = 'answer';
 Blockly.Msg.SENSING_KEYPRESSED = 'key %1 pressed?';
+Blockly.Msg.SENSING_KEYPUP="key %1 loosen?";
 Blockly.Msg.SENSING_MOUSEDOWN = 'mouse down?';
 Blockly.Msg.SENSING_MOUSEX = 'mouse x';
 Blockly.Msg.SENSING_MOUSEY = 'mouse y';
