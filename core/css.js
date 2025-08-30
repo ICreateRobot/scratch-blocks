@@ -204,6 +204,29 @@ Blockly.Css.CONTENT = [
     'top: 0;',
     'left: 0;',
   '}',
+  /* 显示、隐藏 flyout 的按钮 */
+  '.blocklyToolboxTrigger {',
+    'display: flex;',
+    'justify-content: center;',
+    'align-items: center;',
+
+    'position: absolute;',
+    'top: 0;',
+    'left: 0;',
+    'z-index: 20;',
+
+    'width: 0;',
+    'height: 100%;',
+  '}',
+  '.blocklyToolboxTriggerIcon {',
+    'display: block;',
+    'position: absolute;',
+
+    'width: 26px;',
+    'height: 54px;',
+
+    'cursor: pointer;',
+  '}',
   /* Added as a separate rule with multiple classes to make it more specific
      than a bootstrap rule that selects svg:root. See issue #1275 for context.
   */
@@ -498,6 +521,10 @@ Blockly.Css.CONTENT = [
   '.blocklyFlyout {',
     'position: absolute;',
     'z-index: 20;',
+  '}',
+  // 鼠标悬浮在 flyout 区域时，显示因太长而被裁剪掉的积木
+   '.blocklyFlyout:hover {',
+    'overflow: visible;',
   '}',
   '.blocklyFlyoutButton {',
     'fill: none;',
