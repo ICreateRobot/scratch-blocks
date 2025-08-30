@@ -65,6 +65,7 @@ goog.require('Blockly.inject');
 goog.require('Blockly.utils');
 goog.require('goog.color');
 goog.require('Blockly.FieldMatrixCustom')
+goog.require('Blockly.FieldMatrixOnerow')
 
 
 // Turn off debugging when compiled.
