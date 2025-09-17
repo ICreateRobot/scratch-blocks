@@ -303,6 +303,76 @@ Blockly.Blocks['numres0D9'] = {
 
 };
 
+// 限制大小0-10
+
+Blockly.Blocks['numres0D10'] = {
+
+  /**
+
+   * Block for angle picker.
+
+   * @this Blockly.Block
+
+   */
+
+  init: function() {
+
+    this.jsonInit({
+
+      "message0": "%1",
+
+      "args0": [
+
+        {
+
+          "type": "field_number",
+
+          "name": "NUM",
+
+          "value": 0,
+
+          "min": 0,
+
+          "max": 10
+
+        }
+
+      ],
+
+      "output": "Number",
+
+      "outputShape": Blockly.OUTPUT_SHAPE_ROUND,
+
+      "colour": Blockly.Colours.textField,
+
+      "colourSecondary": Blockly.Colours.textField,
+
+      "colourTertiary": Blockly.Colours.textField,
+
+      "colourQuaternary": Blockly.Colours.textField
+
+    });
+
+    const field = this.getField('NUM');
+
+    field.setValidator(function(newValue) {
+
+      const value = Number(newValue);
+
+      if (isNaN(value)) return null;
+
+      if (value < 0) return 0;
+
+      if (value > 10) return 10;
+
+      return value;
+
+    });
+
+  }
+
+};
+
 
 
 // 限制大小40_500
@@ -804,6 +874,72 @@ Blockly.Blocks['numres0'] = {
 
 };
 
+
+// 限制大小1
+
+Blockly.Blocks['numres1'] = {
+
+  /**
+
+   * Block for angle picker.
+
+   * @this Blockly.Block
+
+   */
+
+  init: function() {
+
+    this.jsonInit({
+
+      "message0": "%1",
+
+      "args0": [
+
+        {
+
+          "type": "field_number",
+
+          "name": "NUM",
+
+          "value": 1,
+
+          "min": 1
+
+        }
+
+      ],
+
+      "output": "Number",
+
+      "outputShape": Blockly.OUTPUT_SHAPE_ROUND,
+
+      "colour": Blockly.Colours.textField,
+
+      "colourSecondary": Blockly.Colours.textField,
+
+      "colourTertiary": Blockly.Colours.textField,
+
+      "colourQuaternary": Blockly.Colours.textField
+
+    });
+
+    const field = this.getField('NUM');
+
+    field.setValidator(function(newValue) {
+
+      const value = Number(newValue);
+
+      if (isNaN(value)) return null;
+
+      if (value < 1) return 1;
+
+      return value;
+
+    });
+
+  }
+
+};
 
 
 // 限制大小0_100

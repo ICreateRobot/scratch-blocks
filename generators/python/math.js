@@ -54,6 +54,7 @@ Blockly.Python['numresD100D100'] = Blockly.Python['math_number'];
 
 Blockly.Python['numres0D4'] = Blockly.Python['math_number'];
 Blockly.Python['numres0D9'] = Blockly.Python['math_number'];
+Blockly.Python['numres0D10'] = Blockly.Python['math_number'];
 Blockly.Python['numres40D500'] = Blockly.Python['math_number'];
 Blockly.Python['numres20D10000'] = Blockly.Python['math_number'];
 Blockly.Python['numres0D255'] = Blockly.Python['math_number'];
@@ -61,6 +62,7 @@ Blockly.Python['numresD255D255'] = Blockly.Python['math_number'];
 Blockly.Python['numres0D300'] = Blockly.Python['math_number'];
 Blockly.Python['numresD100D100'] = Blockly.Python['math_number'];
 Blockly.Python['numres0'] = Blockly.Python['math_number'];
+Blockly.Python['numres1'] = Blockly.Python['math_number'];
 Blockly.Python['numres0D100'] = Blockly.Python['math_number'];
 Blockly.Python['numresD360D360'] = Blockly.Python['math_number'];
 Blockly.Python['numresD32400D32400'] = Blockly.Python['math_number'];
