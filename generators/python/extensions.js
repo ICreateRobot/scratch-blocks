@@ -2176,6 +2176,85 @@ Blockly.Python['robotsensors_sound']=function(block){
     }
 }
 
+
+//舵机
+Blockly.Python['robotextend_motor']=function(block){
+
+    // Blockly.Python.definitions_['icrobot'] = "import icrobot";
+    let num= Blockly.Python.valueToCode(block, 'ONE',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'ONE');
+
+    
+    num=num.replace(/^["']|["']$/g, '');
+    let code = `s1.write_angle(${num})\n`
+    
+	let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['s1 = module.Servo()'] = "s1 = module.Servo()";
+        // Blockly.Python.definitions_['icrobot'] = "import icrobot";
+        return code;
+    }else{
+        return ''
+    }
+};
+//摇杆
+Blockly.Python['robotextend_joystickBool']=function(block){
+
+    // Blockly.Python.definitions_['icrobot'] = "import icrobot";
+    let dir=block.getFieldValue('ONE') || 'False';
+
+    let code
+    if(dir=='0'){
+        code = `m.is_up()`
+    }else if(dir=='1'){
+        code = `m.is_down()`
+    }else if(dir=='2'){
+        code = `m.is_left()`
+    }else if(dir=='3'){
+        code = `m.is_right()`
+    }
+    
+    
+	let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.joystick_sensor()'] = "m = module.joystick_sensor()";
+        // Blockly.Python.definitions_['icrobot'] = "import icrobot";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+};
+
+Blockly.Python['robotextend_joystickRepo']=function(block){
+
+    // Blockly.Python.definitions_['icrobot'] = "import icrobot";
+    let dir=block.getFieldValue('ONE') || 'False';
+
+    let code
+    if(dir=='0'){
+        code = `m.get_x()`
+    }else if(dir=='1'){
+        code = `m.get_y()`
+    }
+    
+    
+	let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.joystick_sensor()'] = "m = module.joystick_sensor()";
+        // Blockly.Python.definitions_['icrobot'] = "import icrobot";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+};
 //开始离线语音识别
 Blockly.Python['robotsensors_asrStart']=function(block){
     
