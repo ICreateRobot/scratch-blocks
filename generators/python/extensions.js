@@ -3115,6 +3115,567 @@ Blockly.Python['robotimg_trafficPlace']=function(block){
         return ''
     }
 }
+
+Blockly.Python['robotextend_servo']=function(block){
+    let place=block.getFieldValue('ONE') || 'False';
+    let code
+    code=`m1 = module.servo_motor(module.servo_motor.${place})\n`
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['icrobot'] = "import icrobot";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_servoSpeed']=function(block){
+    let v= Blockly.Python.valueToCode(block, 'ONE',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'ONE');
+    v=v.replace(/^["']|["']$/g, '');
+    let code
+    code=`m1.run(${v})\n`
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['icrobot'] = "import icrobot";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_servoSpeedTime']=function(block){
+    let v= Blockly.Python.valueToCode(block, 'ONE',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'ONE');
+    let t=Blockly.Python.valueToCode(block, 'TWO',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'TWO');
+    v=v.replace(/^["']|["']$/g, '');
+    t=t.replace(/^["']|["']$/g, '');
+    let code
+    code=`m1.run_for_duration(${v},${t})\n`
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['icrobot'] = "import icrobot";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_servoSpeedAbsolute']=function(block){
+    let v= Blockly.Python.valueToCode(block, 'ONE',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'ONE');
+    let d=Blockly.Python.valueToCode(block, 'TWO',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'TWO');
+    v=v.replace(/^["']|["']$/g, '');
+    d=d.replace(/^["']|["']$/g, '');
+    let code
+    code=`m1.run_to_absolute_position(${v},${d})\n`
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['icrobot'] = "import icrobot";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_servoSpeedRelative']=function(block){
+    let v= Blockly.Python.valueToCode(block, 'ONE',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'ONE');
+    let d=Blockly.Python.valueToCode(block, 'TWO',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'TWO');
+    v=v.replace(/^["']|["']$/g, '');
+    d=d.replace(/^["']|["']$/g, '');
+    let code
+    code=`m1.run_to_relative_position(${v},${d})\n`
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['icrobot'] = "import icrobot";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_getServoSpeedAbsolute']=function(block){
+    let code
+    code=`m1.get_absolute_position()`
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['icrobot'] = "import icrobot";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_oledShow']=function(block){
+    let text= Blockly.Python.valueToCode(block, 'ONE',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'ONE');
+    let x=Blockly.Python.valueToCode(block, 'TWO',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'TWO');
+    let y=Blockly.Python.valueToCode(block, 'THREE',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'THREE');
+    let mode=block.getFieldValue('FOUR') || 'False';
+    // text=text.replace(/^["']|["']$/g, '');
+    x=x.replace(/^["']|["']$/g, '');
+    y=y.replace(/^["']|["']$/g, '');
+    let code
+    code=`oled.set_text(${x}, ${y}, ${text}, color=${mode})\n`
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['oled = module.OLED()'] = "oled = module.OLED()";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_oledClear']=function(block){
+    let code
+    code=`oled.clear_screen()\n`
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['oled = module.OLED()'] = "oled = module.OLED()";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_recording']=function(block){
+    let mode=block.getFieldValue('ONE') || 'False';
+    let code
+    code=`m.voice(module.recording.${mode})\n`
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.recording()'] = "m = module.recording()";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_lightRingBrightness']=function(block){
+    let light= Blockly.Python.valueToCode(block, 'ONE',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'ONE');
+    light=light.replace(/^["']|["']$/g, '');
+    let code
+    code=`m.light(${light})\n`
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.light_ring()'] = "m = module.light_ring()";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_lightRingColor']=function(block){
+    let mode=block.getFieldValue('ONE') || 'False';
+    let code
+    code=`m.color(module.light_ring.${mode})\n`
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.light_ring()'] = "m = module.light_ring()";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_led']=function(block){
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let TWO= Blockly.Python.valueToCode(block, 'TWO',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'TWO');
+    TWO=TWO.replace(/^["']|["']$/g, '');
+    let code
+    if(ONE=='on'){
+        code=`m.on(${TWO})\n`
+    }else if(ONE=='off'){
+        code=`m.off()\n`
+    }
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.led()'] = "m = module.led()";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_laser']=function(block){
+    let TWO=block.getFieldValue('TWO') || 'False';
+    let ONE= Blockly.Python.valueToCode(block, 'ONE',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'ONE');
+    ONE=ONE.replace(/^["']|["']$/g, '');
+    let code
+    if(TWO=='on'){
+        code=`m.on(${ONE})\n`
+    }else if(TWO=='off'){
+        code=`m.off()\n`
+    }
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.laser()'] = "m = module.laser()";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_fan']=function(block){
+    let TWO=block.getFieldValue('TWO') || 'False';
+    let ONE= Blockly.Python.valueToCode(block, 'ONE',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'ONE');
+    ONE=ONE.replace(/^["']|["']$/g, '');
+    let code
+    if(TWO=='on'){
+        code=`m.on(${ONE})\n`
+    }else if(TWO=='off'){
+        code=`m.off()\n`
+    }
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.fan()'] = "m = module.fan()";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_electronmagnet']=function(block){
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+    if(ONE=='on'){
+        code=`m.on()\n`
+    }else if(ONE=='off'){
+        code=`m.off()\n`
+    }
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.electromagnet()'] = "m = module.electromagnet()";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_ultrasonic']=function(block){
+    let code
+
+    code=`m.get()`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.ultrasonic_sensor()'] = "m = module.ultrasonic_sensor()";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_button']=function(block){
+    let code
+
+    code=`m.value()`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.button()'] = "m = module.button()";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_buttonBool']=function(block){
+    let code
+
+    code=`m.is_pressed()`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.button()'] = "m = module.button()";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_gas']=function(block){
+    let code
+
+    code=`m.value()`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.gasConcentration()'] = "m = module.gasConcentration()";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_farState']=function(block){
+    let code
+
+    code=`m.value()`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.farState()'] = "m = module.farState()";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_grayLevel']=function(block){
+    let code
+
+    code=`m.value()`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.graylevel()'] = "m = module.graylevel()";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_potentiometer']=function(block){
+    let code
+
+    code=`m.value()`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.potentiometer()'] = "m = module.potentiometer()";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_lightintensity']=function(block){
+    let code
+
+    code=`m.value()`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.lightintensity()'] = "m = module.lightintensity()";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_hallsensor']=function(block){
+    let code
+
+    code=`m.value()`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.hallsensor()'] = "m = module.hallsensor()";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_flame']=function(block){
+    let code
+
+    code=`m.value()`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.flame()'] = "m = module.flame()";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_watertemp']=function(block){
+    let code
+
+    code=`m.value()`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.watertemp()'] = "m = module.watertemp()";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_soilhumidity']=function(block){
+    let code
+
+    code=`m.value()`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.soilhumidity()'] = "m = module.soilhumidity()";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_waterlevel']=function(block){
+    let code
+
+    code=`m.value()`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.waterlevel()'] = "m = module.waterlevel()";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+Blockly.Python['robotextend_pir']=function(block){
+    let code
+
+    code=`m.value()`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        Blockly.Python.definitions_['m = module.pir()'] = "m = module.pir()";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
 //键盘按键
 // Blockly.Python['robotimg_keyisdown']=function(block){
 
