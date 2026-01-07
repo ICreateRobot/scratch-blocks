@@ -606,3 +606,755 @@ Blockly.Lua['event_when']=function(block){
 
 return ''
 };
+
+let port=7
+Blockly.Lua['k210_settingsBricks']=function(block){
+    let ONE = block.getFieldValue('ONE') || 'False';
+    let TWO=block.getFieldValue('TWO') || 'False';
+    let code
+
+    port =Number(ONE)
+    code=`A1(${port},${Number(TWO)})\nD1(0.5)\n`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_currentMode']=function(block){
+
+    let code
+    
+    code=`A1(${port},-1)`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_colorRecogn']=function(block){
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+
+    if(ONE=='r'){
+        code=`A2(${port},1)`
+    }else if(ONE=='g'){
+        code=`A2(${port},2)`
+    }else if(ONE=='b'){
+        code=`A2(${port},3)`
+    }
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_colorBlockSet']=function(block){
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+
+    code=`A2(${port},${Number(ONE)})\n`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_colorIsTrack']=function(block){
+
+    let code
+    code=`A3(${port},1,2,0)>0`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_colorBlockInfo']=function(block){
+
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+    code=`A4(${port},${Number(ONE)},2,0)`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_tagNum']=function(block){
+
+    let code
+    code=`A3(${port},1,3,0)`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_tagCont']=function(block){
+
+    let code
+    code=`A3(${port},0,3,0)`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_tagAngle']=function(block){
+
+    let code
+    code=`A4(${port},4,3,0)`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_tagInfo']=function(block){
+
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+    code=`A4(${port},${Number(ONE)},3,0)`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_lineIsRecog']=function(block){
+
+    let code
+    code=`A3(${port},1,4,0)>0`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_lineInfo']=function(block){
+
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let TWO=block.getFieldValue('TWO') || 'False';
+    let code
+    code=`A4(${port},${Number(TWO)},4,${Number(ONE)})`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_objectNum']=function(block){
+
+
+    let code
+    code=`A3(${port},1,5,0)`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_objectIsRecogn']=function(block){
+
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+    code=`A3(${port},0,5,0)==${Number(ONE)}`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_objInfo']=function(block){
+
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+    code=`A4(${port},${Number(ONE)},5,0)`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_qrIsRecogn']=function(block){
+    let code
+    code=`A3(${port},1,6,0)==1`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_qrCont']=function(block){
+    let code
+    code=`A3(${port},0,6,0)`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_qrInfo']=function(block){
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+    code=`A4(${port},${Number(ONE)},6,0)`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_faceAttrNum']=function(block){
+
+    let code
+    code=`A3(${port},1,7,0)`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_faceAttrInfo']=function(block){
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let TWO=block.getFieldValue('TWO') || 'False';
+    let code
+    code=`A4(${port},${Number(TWO)},7,${Number(ONE)})`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+
+Blockly.Lua['k210_faceAttrEmote']=function(block){
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let TWO=block.getFieldValue('TWO') || 'False';
+    let code
+    if(TWO=='1'){
+        code=`A6(${port},0,${Number(ONE)})`
+    }else if(TWO=='2'){
+        code=`A6(${port},1,${Number(ONE)})`
+    }else if(TWO=='3'){
+        code=`A6(${port},2,${Number(ONE)})`
+    }
+    
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+
+Blockly.Lua['k210_faceLearn']=function(block){
+
+
+    let code
+    
+    code=`A5(${port},8)\n`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_faceRecogNum']=function(block){
+
+
+    let code
+    
+    code=`A3(${port},1,8,1)`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_faceRecogLearnNum']=function(block){
+
+
+    let code
+    
+    code=`A3(${port},1,8,0)`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_faceRecognEmote']=function(block){
+
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let TWO=block.getFieldValue('TWO') || 'False';
+    let code
+    
+    code=`A4(${port},${Number(TWO)},8,${Number(ONE)})`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_deepLearning']=function(block){
+
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+    
+    code=`A3(${port},0,9,0)==${Number(ONE)}`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_roadNum']=function(block){
+
+
+    let code
+    
+    code=`A3(${port},1,10,0)`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_roadRecog']=function(block){
+
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+    
+    code=`A3(${port},0,10,0)==${Number(ONE)}`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_roadInfo']=function(block){
+
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+    
+    code=`A4(${port},${Number(ONE)},10,0)`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_wirelessSetBricks']=function(block){
+
+
+    let ONE= Blockly.Python.valueToCode(block, 'ONE',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'ONE');
+    let TWO= Blockly.Python.valueToCode(block, 'TWO',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'TWO');
+    let THREE=block.getFieldValue('THREE') || 'False';
+    port=Number(THREE)
+    let code
+    
+    code=`A7(${port},('${ONE}'),('${TWO}'))\n`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_wirelessConnectBricks']=function(block){
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    port=Number(ONE)
+    let code
+    
+    code=`A7(${port})\n`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_lightSwitchBricks']=function(block){
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let TWO=block.getFieldValue('TWO') || 'False';
+    port = Number(TWO)
+    let code
+    
+    if(ONE=='1'){
+        code=`A9(${port},200)\n`
+    }else{
+        code=`A9(${port},-1)\n`
+    }
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_lightBrightnessBricks']=function(block){
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let TWO=block.getFieldValue('TWO') || 'False';
+    port = Number(TWO)
+    let code
+    
+    code=`A9(${port},${Number(ONE)})\n`
+    
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Lua['k210_lightGetBrightnessBricks']=function(block){
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    port = Number(ONE)
+    let code
+    
+    code=`A9(${port})`
+    
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
