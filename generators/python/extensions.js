@@ -5,6 +5,7 @@ const { blockColors } = require("scratch-gui/src/lib/themes/accent/purple");
 goog.provide('Blockly.Python.extensions');
 
 goog.require('Blockly.Python');
+
 Blockly.Python['helloworld_hello']=function(block){
     // alert(JSON.stringify(block))
 	// Blockly.Python.definitions_['from PIL import Image'] = "from PIL import Image";
@@ -2185,14 +2186,14 @@ Blockly.Python['robotextend_motor']=function(block){
 
     
     num=num.replace(/^["']|["']$/g, '');
-    let code = `s1.write_angle(${num})\n`
+    let code = `icrobot.servo.write_angle(${num})\n`
     
 	let parent=block
     while (parent.getParent()) {
         parent = parent.getParent();
     }
 	if(parent.type=='event_when' || parent.type=='procedures_definition'){
-        Blockly.Python.definitions_['s1 = module.Servo()'] = "s1 = module.Servo()";
+        Blockly.Python.definitions_['icrobot.servo.set_port()'] = "icrobot.servo.set_port()";
         // Blockly.Python.definitions_['icrobot'] = "import icrobot";
         return code;
     }else{
@@ -2204,16 +2205,17 @@ Blockly.Python['robotextend_joystickBool']=function(block){
 
     // Blockly.Python.definitions_['icrobot'] = "import icrobot";
     let dir=block.getFieldValue('ONE') || 'False';
+    let port=block.getFieldValue('TWO') || 'False';
 
     let code
     if(dir=='0'){
-        code = `m.is_up()`
+        code = `joy${port}.is_up()`
     }else if(dir=='1'){
-        code = `m.is_down()`
+        code = `joy${port}.is_down()`
     }else if(dir=='2'){
-        code = `m.is_left()`
+        code = `joy${port}.is_left()`
     }else if(dir=='3'){
-        code = `m.is_right()`
+        code = `joy${port}.is_right()`
     }
     
     
@@ -2222,7 +2224,7 @@ Blockly.Python['robotextend_joystickBool']=function(block){
         parent = parent.getParent();
     }
 	if(parent.type=='event_when' || parent.type=='procedures_definition'){
-        Blockly.Python.definitions_['m = module.joystick_sensor()'] = "m = module.joystick_sensor()";
+        Blockly.Python.definitions_[`joy${port} = icrobot.joystick_sensor(${port})`] = `joy${port} = icrobot.joystick_sensor(${port})`;
         // Blockly.Python.definitions_['icrobot'] = "import icrobot";
         return [code,Blockly.Python.ORDER_NONE];
     }else{
@@ -2234,12 +2236,13 @@ Blockly.Python['robotextend_joystickRepo']=function(block){
 
     // Blockly.Python.definitions_['icrobot'] = "import icrobot";
     let dir=block.getFieldValue('ONE') || 'False';
+    let port=block.getFieldValue('TWO') || 'False';
 
     let code
     if(dir=='0'){
-        code = `m.get_x()`
+        code = `joy${port}.get_x()`
     }else if(dir=='1'){
-        code = `m.get_y()`
+        code = `joy${port}.get_y()`
     }
     
     
@@ -2248,7 +2251,7 @@ Blockly.Python['robotextend_joystickRepo']=function(block){
         parent = parent.getParent();
     }
 	if(parent.type=='event_when' || parent.type=='procedures_definition'){
-        Blockly.Python.definitions_['m = module.joystick_sensor()'] = "m = module.joystick_sensor()";
+        Blockly.Python.definitions_[`joy${port} = icrobot.joystick_sensor(${port})`] = `joy${port} = icrobot.joystick_sensor(${port})`;
         // Blockly.Python.definitions_['icrobot'] = "import icrobot";
         return [code,Blockly.Python.ORDER_NONE];
     }else{
@@ -3116,17 +3119,31 @@ Blockly.Python['robotimg_trafficPlace']=function(block){
     }
 }
 
+
 Blockly.Python['robotextend_servo']=function(block){
     let place=block.getFieldValue('ONE') || 'False';
+    let port = block.getFieldValue('TWO') || 'False';
     let code
-    code=`m1 = module.servo_motor(module.servo_motor.${place})\n`
+    code=``
+
 
     let parent=block
     while (parent.getParent()) {
         parent = parent.getParent();
     }
 	if(parent.type=='event_when' || parent.type=='procedures_definition'){
-        // Blockly.Python.definitions_['icrobot'] = "import icrobot";
+        if(place=='GENERAL'){
+            Blockly.Python.definitions_[`servo${port}`] = `servo${port} = icrobot.servo_motor(${port},0x50)`;
+        }else if(place=='LIGHT_RED'){
+            Blockly.Python.definitions_[`servo${port}`] = `servo${port} = icrobot.servo_motor(${port},0x51)`;
+        }else if(place=='LIGHT_GREEN'){
+            Blockly.Python.definitions_[`servo${port}`] = `servo${port} = icrobot.servo_motor(${port},0x52)`;
+        }else if(place=='LIGHT_BLUE'){
+            Blockly.Python.definitions_[`servo${port}`] = `servo${port} = icrobot.servo_motor(${port},0x53)`;
+        }else if(place=='LIGHT_YELLOW'){
+            Blockly.Python.definitions_[`servo${port}`] = `servo${port} = icrobot.servo_motor(${port},0x53)`;
+        }
+        
         return code;
     }else{
         return ''
@@ -3136,8 +3153,10 @@ Blockly.Python['robotextend_servo']=function(block){
 Blockly.Python['robotextend_servoSpeed']=function(block){
     let v= Blockly.Python.valueToCode(block, 'ONE',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'ONE');
     v=v.replace(/^["']|["']$/g, '');
+    let port = block.getFieldValue('TWO') || 'False';
     let code
-    code=`m1.run(${v})\n`
+
+    code=`servo${port}.run(${v})\n`
 
     let parent=block
     while (parent.getParent()) {
@@ -3154,10 +3173,12 @@ Blockly.Python['robotextend_servoSpeed']=function(block){
 Blockly.Python['robotextend_servoSpeedTime']=function(block){
     let v= Blockly.Python.valueToCode(block, 'ONE',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'ONE');
     let t=Blockly.Python.valueToCode(block, 'TWO',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'TWO');
+    let port = block.getFieldValue('THREE') || 'False';
     v=v.replace(/^["']|["']$/g, '');
     t=t.replace(/^["']|["']$/g, '');
     let code
-    code=`m1.run_for_duration(${v},${t})\n`
+
+    code=`servo${port}.run_for_time(${v},${t})\n`
 
     let parent=block
     while (parent.getParent()) {
@@ -3174,10 +3195,11 @@ Blockly.Python['robotextend_servoSpeedTime']=function(block){
 Blockly.Python['robotextend_servoSpeedAbsolute']=function(block){
     let v= Blockly.Python.valueToCode(block, 'ONE',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'ONE');
     let d=Blockly.Python.valueToCode(block, 'TWO',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'TWO');
+    let port = block.getFieldValue('THREE') || 'False';
     v=v.replace(/^["']|["']$/g, '');
     d=d.replace(/^["']|["']$/g, '');
     let code
-    code=`m1.run_to_absolute_position(${v},${d})\n`
+    code=`servo${port}.run_to_absolute_position(${v},${d})\n`
 
     let parent=block
     while (parent.getParent()) {
@@ -3194,10 +3216,29 @@ Blockly.Python['robotextend_servoSpeedAbsolute']=function(block){
 Blockly.Python['robotextend_servoSpeedRelative']=function(block){
     let v= Blockly.Python.valueToCode(block, 'ONE',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'ONE');
     let d=Blockly.Python.valueToCode(block, 'TWO',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'TWO');
+    let port = block.getFieldValue('THREE') || 'False';
     v=v.replace(/^["']|["']$/g, '');
     d=d.replace(/^["']|["']$/g, '');
     let code
-    code=`m1.run_to_relative_position(${v},${d})\n`
+    code=`servo${port}.run_to_relative_position(${v},${d})\n`
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['icrobot'] = "import icrobot";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotextend_servoStop']=function(block){
+    let port = block.getFieldValue('TWO') || 'False';
+    let code
+
+    code=`servo${port}.run(0)\n`
 
     let parent=block
     while (parent.getParent()) {
@@ -3212,8 +3253,10 @@ Blockly.Python['robotextend_servoSpeedRelative']=function(block){
 }
 
 Blockly.Python['robotextend_getServoSpeedAbsolute']=function(block){
+    let port = block.getFieldValue('ONE') || 'False';
     let code
-    code=`m1.get_absolute_position()`
+
+    code=`servo${port}.get_absolute_position()`
 
     let parent=block
     while (parent.getParent()) {
@@ -3348,9 +3391,9 @@ Blockly.Python['robotextend_laser']=function(block){
     ONE=ONE.replace(/^["']|["']$/g, '');
     let code
     if(TWO=='on'){
-        code=`m.on(${ONE})\n`
+        code=`icrobot.laser.on(${ONE})\n`
     }else if(TWO=='off'){
-        code=`m.off()\n`
+        code=`icrobot.laser.off()\n`
     }
     
 
@@ -3359,7 +3402,7 @@ Blockly.Python['robotextend_laser']=function(block){
         parent = parent.getParent();
     }
 	if(parent.type=='event_when' || parent.type=='procedures_definition'){
-        Blockly.Python.definitions_['m = module.laser()'] = "m = module.laser()";
+        Blockly.Python.definitions_['icrobot.laser.set_port()'] = "icrobot.laser.set_port()";
         return code;
     }else{
         return ''
@@ -3372,9 +3415,9 @@ Blockly.Python['robotextend_fan']=function(block){
     ONE=ONE.replace(/^["']|["']$/g, '');
     let code
     if(TWO=='on'){
-        code=`m.on(${ONE})\n`
+        code=`icrobot.fan.on(${ONE})\n`
     }else if(TWO=='off'){
-        code=`m.off()\n`
+        code=`icrobot.fan.off()\n`
     }
     
 
@@ -3383,7 +3426,7 @@ Blockly.Python['robotextend_fan']=function(block){
         parent = parent.getParent();
     }
 	if(parent.type=='event_when' || parent.type=='procedures_definition'){
-        Blockly.Python.definitions_['m = module.fan()'] = "m = module.fan()";
+        Blockly.Python.definitions_['icrobot.fan.set_port()'] = "icrobot.fan.set_port()";
         return code;
     }else{
         return ''
@@ -3415,7 +3458,7 @@ Blockly.Python['robotextend_electronmagnet']=function(block){
 Blockly.Python['robotextend_ultrasonic']=function(block){
     let code
 
-    code=`m.get()`
+    code=`icrobot.ultrasonic.get()`
 
     
 
@@ -3424,7 +3467,7 @@ Blockly.Python['robotextend_ultrasonic']=function(block){
         parent = parent.getParent();
     }
 	if(parent.type=='event_when' || parent.type=='procedures_definition'){
-        Blockly.Python.definitions_['m = module.ultrasonic_sensor()'] = "m = module.ultrasonic_sensor()";
+        Blockly.Python.definitions_['icrobot.ultrasonic.set_port()'] = "icrobot.ultrasonic.set_port()";
         return [code,Blockly.Python.ORDER_NONE];
     }else{
         return ''
@@ -3529,7 +3572,7 @@ Blockly.Python['robotextend_grayLevel']=function(block){
 Blockly.Python['robotextend_potentiometer']=function(block){
     let code
 
-    code=`m.value()`
+    code=`icrobot.potentiometer.value()`
 
     
 
@@ -3538,7 +3581,7 @@ Blockly.Python['robotextend_potentiometer']=function(block){
         parent = parent.getParent();
     }
 	if(parent.type=='event_when' || parent.type=='procedures_definition'){
-        Blockly.Python.definitions_['m = module.potentiometer()'] = "m = module.potentiometer()";
+        Blockly.Python.definitions_['icrobot.potentiometer.set_port()'] = "icrobot.potentiometer.set_port()";
         return [code,Blockly.Python.ORDER_NONE];
     }else{
         return ''
@@ -3567,7 +3610,7 @@ Blockly.Python['robotextend_lightintensity']=function(block){
 Blockly.Python['robotextend_hallsensor']=function(block){
     let code
 
-    code=`m.value()`
+    code=`icrobot.hall.value()`
 
     
 
@@ -3576,7 +3619,7 @@ Blockly.Python['robotextend_hallsensor']=function(block){
         parent = parent.getParent();
     }
 	if(parent.type=='event_when' || parent.type=='procedures_definition'){
-        Blockly.Python.definitions_['m = module.hallsensor()'] = "m = module.hallsensor()";
+        Blockly.Python.definitions_['icrobot.hall.set_port()'] = "icrobot.hall.set_port()";
         return [code,Blockly.Python.ORDER_NONE];
     }else{
         return ''
@@ -3661,7 +3704,7 @@ Blockly.Python['robotextend_waterlevel']=function(block){
 Blockly.Python['robotextend_pir']=function(block){
     let code
 
-    code=`m.value()`
+    code=`icrobot.pir.value()`
 
     
 
@@ -3670,7 +3713,747 @@ Blockly.Python['robotextend_pir']=function(block){
         parent = parent.getParent();
     }
 	if(parent.type=='event_when' || parent.type=='procedures_definition'){
-        Blockly.Python.definitions_['m = module.pir()'] = "m = module.pir()";
+        Blockly.Python.definitions_['icrobot.pir.set_port()'] = "icrobot.pir.set_port()";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+
+Blockly.Python['k210_settings']=function(block){
+    let TWO=block.getFieldValue('TWO') || 'False';
+    let code
+
+    code=`aiCamera.set_sys_mode(${Number(TWO)})\n`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_currentMode']=function(block){
+
+    let code
+    
+    code=`aiCamera.get_sys_mode()`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_colorRecogn']=function(block){
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+
+    if(ONE=='r'){
+        code=`aiCamera.get_color_rgb()[0]`
+    }else if(ONE=='g'){
+        code=`aiCamera.get_color_rgb()[1]`
+    }else if(ONE=='b'){
+        code=`aiCamera.get_color_rgb()[2]`
+    }
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_colorBlockSet']=function(block){
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+
+    code=`aiCamera.set_find_color(ai_camera.patch_color_tab[${Number(ONE)}])\n`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_colorIsTrack']=function(block){
+
+    let code
+    code=`aiCamera.get_identify_num(ai_camera.AI_CAMERA_PATCH)>0`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_colorBlockInfo']=function(block){
+
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+    code=`aiCamera.get_identify_position(ai_camera.AI_CAMERA_PATCH)[${Number(ONE)}]`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_tagNum']=function(block){
+
+    let code
+    code=`aiCamera.get_identify_num(ai_camera.AI_CAMERA_TAG)`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_tagCont']=function(block){
+
+    let code
+    code=`aiCamera.get_identify_id(ai_camera.AI_CAMERA_TAG)`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_tagAngle']=function(block){
+
+    let code
+    code=`aiCamera.get_identify_rotation(ai_camera.AI_CAMERA_TAG)`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_tagInfo']=function(block){
+
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+    code=`aiCamera.get_identify_position(ai_camera.AI_CAMERA_TAG)[${Number(ONE)}]`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_lineIsRecog']=function(block){
+
+    let code
+    code=`aiCamera.get_identify_num(ai_camera.AI_CAMERA_LINE)>0`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_lineInfo']=function(block){
+
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let TWO=block.getFieldValue('TWO') || 'False';
+    let code
+    code=`aiCamera.get_identify_position(ai_camera.AI_CAMERA_LINE,${Number(ONE)})[${Number(TWO)}]`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_objectNum']=function(block){
+
+
+    let code
+    code=`aiCamera.get_identify_num(ai_camera.AI_CAMERA_20_CLASS)`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_objectIsRecogn']=function(block){
+
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+    code=`aiCamera.get_identify_id(ai_camera.AI_CAMERA_20_CLASS)==${Number(ONE)}`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_objInfo']=function(block){
+
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+    code=`aiCamera.get_identify_position(ai_camera.AI_CAMERA_20_CLASS)[${Number(ONE)}]`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_qrIsRecogn']=function(block){
+    let code
+    code=`aiCamera.get_identify_num(ai_camera.AI_CAMERA_QRCODE)>0`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_qrCont']=function(block){
+    let code
+    code=`aiCamera.get_qrcode_content()`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_qrInfo']=function(block){
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+    code=`aiCamera.get_identify_position(ai_camera.AI_CAMERA_QRCODE)[${Number(ONE)}]`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_faceAttrNum']=function(block){
+
+    let code
+    code=`aiCamera.get_identify_num(ai_camera.AI_CAMERA_FACE_ATTRIBUTE,1)`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_faceAttrInfo']=function(block){
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let TWO=block.getFieldValue('TWO') || 'False';
+    let code
+    code=`aiCamera.get_identify_position(ai_camera.AI_CAMERA_FACE_ATTRIBUTE,${Number(ONE)})[${Number(TWO)}]`
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+
+Blockly.Python['k210_faceAttrEmote']=function(block){
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let TWO=block.getFieldValue('TWO') || 'False';
+    let code
+    if(TWO=='1'){
+        code=`aiCamera.get_identify_face_attribute(${Number(ONE)})[0]==1`
+    }else if(TWO=='2'){
+        code=`aiCamera.get_identify_face_attribute(${Number(ONE)})[1]==1`
+    }else if(TWO=='3'){
+        code=`aiCamera.get_identify_face_attribute(${Number(ONE)})[2]==1`
+    }
+    
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+
+Blockly.Python['k210_faceLearn']=function(block){
+
+
+    let code
+    
+    code=`aiCamera.face_study()\n`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_faceRecogNum']=function(block){
+
+
+    let code
+    
+    code=`aiCamera.get_identify_num(ai_camera.AI_CAMERA_FACE_RE,1)`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_faceRecogLearnNum']=function(block){
+
+
+    let code
+    
+    code=`aiCamera.get_identify_num(ai_camera.AI_CAMERA_FACE_RE,0)`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_faceRecognEmote']=function(block){
+
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let TWO=block.getFieldValue('TWO') || 'False';
+    let code
+    
+    code=`aiCamera.get_identify_position(ai_camera.AI_CAMERA_FACE_RE,${Number(ONE)})[${Number(TWO)}]`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_deepLearning']=function(block){
+
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+    
+    code=`aiCamera.get_identify_id(ai_camera.AI_CAMERA_DEEP_LEARN)==${Number(ONE)}`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_roadNum']=function(block){
+
+
+    let code
+    
+    code=`aiCamera.get_identify_num(ai_camera.AI_CAMERA_CARD)`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_roadRecog']=function(block){
+
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+    
+    code=`aiCamera.get_identify_id(ai_camera.AI_CAMERA_CARD)==${ONE}`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_roadInfo']=function(block){
+
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+    
+    code=`aiCamera.get_identify_position(ai_camera.AI_CAMERA_CARD)[${Number(ONE)}]`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_wirelessSet']=function(block){
+
+
+    let ONE= Blockly.Python.valueToCode(block, 'ONE',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'ONE');
+    let TWO= Blockly.Python.valueToCode(block, 'TWO',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'TWO');
+    let code
+    
+    code=`aiCamera.set_wifi_server_ssid_passward('${ONE}',${TWO})\n`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_wirelessConnect']=function(block){
+
+    let code
+    
+    code=`aiCamera.set_wifi_server_is_scan_qrcode(ture)\n`
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_lightSwitch']=function(block){
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+    
+    if(ONE=='1'){
+        code=`aiCamera.set_light_brightness(5)\n`
+    }else{
+        code=`aiCamera.set_light_brightness(0)\n`
+    }
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_lightBrightness']=function(block){
+
+    let ONE=block.getFieldValue('ONE') || 'False';
+    let code
+    
+    code=`aiCamera.set_light_brightness(${ONE})\n`
+    
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['k210_lightGetBrightness']=function(block){
+
+    let code
+    
+    code=`aiCamera.get_light_brightness()`
+    
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
         return [code,Blockly.Python.ORDER_NONE];
     }else{
         return ''
