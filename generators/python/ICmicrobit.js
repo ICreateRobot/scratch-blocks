@@ -216,9 +216,11 @@ Blockly.Python['MicrobiteIcreateP_ICM_UltrasonicWave'] = function(block) {
 
 //检测到摇杆动作
 Blockly.Python['MicrobiteIcreateP_ICM_RockerType'] = function(block) {
-    const pinChoice = block.getFieldValue('CHOICE').substring(1);
+    const pinChoice = block.getFieldValue('CHOICE');
 
-    const pythonCode = `ICM_joy.${pinChoice}()`;
+    // console.log(pinChoice)
+    // console.log(block.getFieldValue('CHOICE'))
+    const pythonCode = `ICM_joy.${DICT_RockerType[pinChoice]}()`;
     
     let parent = block;
     while (parent.getParent()) {
@@ -233,8 +235,10 @@ Blockly.Python['MicrobiteIcreateP_ICM_RockerType'] = function(block) {
 
 //摇杆
 Blockly.Python['MicrobiteIcreateP_ICM_Rocker'] = function(block) {
-    const pinChoice = block.getFieldValue('CHOICE').substring(1);
+    const pinChoice = block.getFieldValue('CHOICE').toLowerCase();
 
+    // console.log(pinChoice)
+    // console.log(block.getFieldValue('CHOICE'))
     const pythonCode = `ICM_joy.get_${pinChoice}()`;
     
     let parent = block;
@@ -290,7 +294,7 @@ Blockly.Python['MicrobiteIcreateP_ICM_Fan'] = function(block) {
     const pinChoice1 = block.getFieldValue('CHOICE1');
     const pinChoice2 = block.getFieldValue('CHOICE2');
     
-    const pythonCode = `pin${pinChoice1.substring(1)}.write_angle(${DICT_LaserOff[pinChoice2]})\n`;
+    const pythonCode = `pin${pinChoice1.substring(1)}.write_digital(${DICT_LaserOff[pinChoice2]})\n`;
 
     let parent = block;
     while (parent.getParent()) {
@@ -308,7 +312,7 @@ Blockly.Python['MicrobiteIcreateP_ICM_Elecmagnet'] = function(block) {
     const pinChoice1 = block.getFieldValue('CHOICE1');
     const pinChoice2 = block.getFieldValue('CHOICE2');
     
-    const pythonCode = `pin${pinChoice1.substring(1)}.write_angle(${DICT_LaserOff[pinChoice2]})\n`;
+    const pythonCode = `pin${pinChoice1.substring(1)}.write_digital(${DICT_LaserOff[pinChoice2]})\n`;
 
     let parent = block;
     while (parent.getParent()) {
