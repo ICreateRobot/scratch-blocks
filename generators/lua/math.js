@@ -406,3 +406,23 @@ Blockly.Lua['math_atan2'] = function(block) {
     'math.deg(math.atan2(' + argument1 + ', ' + argument0 + '))', Blockly.Lua.ORDER_HIGH
   ];
 };
+
+
+Blockly.Lua['numresD100D100'] = Blockly.Lua['math_number'];
+
+
+Blockly.Lua['numres0D4'] = Blockly.Lua['math_number'];
+Blockly.Lua['numres0D9'] = Blockly.Lua['math_number'];
+Blockly.Lua['numres0D10'] = Blockly.Lua['math_number'];
+Blockly.Lua['numres40D500'] = Blockly.Lua['math_number'];
+Blockly.Lua['numres20D10000'] = Blockly.Lua['math_number'];
+Blockly.Lua['numres0D255'] = Blockly.Lua['math_number'];
+Blockly.Lua['numresD255D255'] = Blockly.Lua['math_number'];
+Blockly.Lua['numres0D300'] = Blockly.Lua['math_number'];
+Blockly.Lua['numresD100D100'] = Blockly.Lua['math_number'];
+Blockly.Lua['numres0'] = Blockly.Lua['math_number'];
+Blockly.Lua['numres1'] = Blockly.Lua['math_number'];
+Blockly.Lua['numres0D100'] = Blockly.Lua['math_number'];
+Blockly.Lua['numresD360D360'] = Blockly.Lua['math_number'];
+Blockly.Lua['numresD32400D32400'] = Blockly.Lua['math_number'];
+Blockly.Lua['numres0D65535'] = Blockly.Lua['math_number'];

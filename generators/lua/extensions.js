@@ -65,10 +65,10 @@ Blockly.Lua['bricksmotor_motorSpeed']=function(block){
     // if(TWO){
     //     TWO=parseFloat(TWO.match(/-?\d+(\.\d+)?/));
     // }
-    if(isNumeric(TWO) && TWO>255){
-        alert('请输入0~255之间的数字')
-        return `S1(${ONE},0x01,0,0)\n`
-    }
+    // if(isNumeric(TWO) && TWO>255){
+    //     alert('请输入0~255之间的数字')
+    //     return `S1(${ONE},0x01,0,0)\n`
+    // }
     
     TWO=`${TWO}*${THREE}`
     let code=`S1(${ONE},0x01,${TWO},0)\n`
@@ -100,10 +100,10 @@ Blockly.Lua['bricksmotor_motorSpeedCir']=function(block){
     //     FOUR=parseFloat(FOUR.match(/-?\d+(\.\d+)?/));
     // }
     FOUR=FOUR.replace(/^["']|["']$/g, '');
-    if(isNumeric(TWO) && TWO>255){
-        alert('请输入0~255之间的数字')
-        return `S4(${ONE},0x04,0,0)\n`
-    }
+    // if(isNumeric(TWO) && TWO>255){
+    //     alert('请输入0~255之间的数字')
+    //     return `S4(${ONE},0x04,0,0)\n`
+    // }
     TWO=`${TWO}*${THREE}`
     if(parent.type=='event_when'){
         Blockly.Lua.definitions_['D1(1)'] = "D1(1)";
@@ -151,10 +151,10 @@ Blockly.Lua['bricksmotor_moveto']=function(block){
     //     TWO=parseFloat(TWO.match(/-?\d+(\.\d+)?/));
     // }
     TWO=TWO.replace(/^["']|["']$/g, '');
-    if(isNumeric(TWO) && TWO>255){
-        alert('请输入0~255之间的数字')
-        return `S4(${ONE},0x03,0,0)\n`
-    }
+    // if(isNumeric(TWO) && TWO>255){
+    //     alert('请输入0~255之间的数字')
+    //     return `S4(${ONE},0x03,0,0)\n`
+    // }
     // if(THREE){
     //     THREE=parseFloat(THREE.match(/-?\d+(\.\d+)?/));
     // }
@@ -209,10 +209,10 @@ Blockly.Lua['brickstwomotor_speedmove']=function(block){
     //     TWO=parseFloat(TWO.match(/-?\d+(\.\d+)?/));
     // }
     TWO=TWO.replace(/^["']|["']$/g, '');
-    if(isNumeric(TWO) && TWO>255){
-        alert('请输入0~255之间的数字')
-        return `S5(${firstMotor},${secondMotor},0x01,0,0,${ONE})\n`
-    }
+    // if(isNumeric(TWO) && TWO>255){
+    //     alert('请输入0~255之间的数字')
+    //     return `S5(${firstMotor},${secondMotor},0x01,0,0,${ONE})\n`
+    // }
     let code=`S5(${firstMotor},${secondMotor},0x01,${TWO},0,${ONE})\n`
     if(parent.type=='event_when'){
         Blockly.Lua.definitions_['D1(1)'] = "D1(1)";
@@ -237,10 +237,10 @@ Blockly.Lua['brickstwomotor_speedmoveplace']=function(block){
     //     TWO=parseFloat(TWO.match(/-?\d+(\.\d+)?/));
     // }
     TWO=TWO.replace(/^["']|["']$/g, '');
-    if(isNumeric(TWO) && TWO>255){
-        alert('请输入0~255之间的数字')
-        return `S5(${firstMotor},${secondMotor},0x04,0,0,${ONE})\n`
-    }
+    // if(isNumeric(TWO) && TWO>255){
+    //     alert('请输入0~255之间的数字')
+    //     return `S5(${firstMotor},${secondMotor},0x04,0,0,${ONE})\n`
+    // }
     // if(THREE){
     //     THREE=parseFloat(THREE.match(/-?\d+(\.\d+)?/));
     // }
