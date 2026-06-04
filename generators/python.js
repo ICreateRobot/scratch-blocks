@@ -192,9 +192,9 @@ Blockly.Python.finish = function(code) {
         ret += loops.join('\n' + Blockly.Python.INDENT) + "\n\n";
     }
     // variables
-    // if (variables.length !== 0) {
-    //     ret += variables.join('\n') + "\n\n";
-    // }
+    if (variables.length !== 0) {
+        ret += variables.join('\n') + "\n\n";
+    }
     // setups
     if (setups.length !== 0) {
         ret += setups.join('\n') + "\n\n";
