@@ -296,3 +296,19 @@ Blockly.Lua['operator_mod'] = function(block) {
       return ''
     }
 };
+
+Blockly.Lua['operator_Num'] = function(block) {
+    var arg0 = Blockly.Lua.valueToCode(block, 'NUM', Blockly.Lua.ORDER_NONE) || 0;
+    var code = Number(arg0);
+  
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+    if(parent.type=='event_when' || parent.type=='procedures_definition'){
+      return [code, Blockly.Lua.ORDER_NONE];
+    }else{
+        return ''
+    }
+    
+  };

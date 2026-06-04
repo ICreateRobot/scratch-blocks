@@ -487,3 +487,24 @@ Blockly.Blocks['operator_mathop'] = {
     });
   }
 };
+
+//数字
+Blockly.Blocks['operator_Num'] = {
+  /**
+   * Block for rounding a numbers.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.OPERATORS_NUM,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "NUM"
+        }
+      ],
+      "category": Blockly.Categories.operators,
+      "extensions": ["colours_operators", "output_number"]
+    });
+  }
+};

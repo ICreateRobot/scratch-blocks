@@ -287,6 +287,22 @@ Blockly.Python['operator_round'] = function(block) {
   
 };
 
+Blockly.Python['operator_Num'] = function(block) {
+  var arg0 = Blockly.Python.valueToCode(block, 'NUM', Blockly.Python.ORDER_NONE) || 0;
+  var code = Number(arg0);
+
+  let parent=block
+  while (parent.getParent()) {
+      parent = parent.getParent();
+  }
+  if(parent.type=='event_when' || parent.type=='procedures_definition'){
+    return [code, Blockly.Python.ORDER_NONE];
+  }else{
+      return ''
+  }
+  
+};
+
 Blockly.Python['operator_mathop'] = function(block) {
   var mode = block.getFieldValue('OPERATOR');
   var arg0 = Blockly.Python.valueToCode(block, 'NUM', Blockly.Python.ORDER_FUNCTION_CALL) || '0';
