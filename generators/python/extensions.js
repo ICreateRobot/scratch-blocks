@@ -4459,6 +4459,296 @@ Blockly.Python['k210_lightGetBrightness']=function(block){
         return ''
     }
 }
+let portMap=["port1_0","port1_1","port2_0","port2_1","port34_0","port34_1"]
+Blockly.Python['robotpin_setDigital']=function(block){
+
+    let PIN=block.getFieldValue('PIN') || 'False';
+    let CHOICE=block.getFieldValue('CHOICE') || 'False';
+    let code
+    
+    code=`esp_pin.digitalWrite(icrobot.${portMap[PIN]}, ${Number(CHOICE)})\n`
+    
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return code;
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotpin_setPwm']=function(block){
+
+    let PIN=block.getFieldValue('PIN') || 'False';
+    let FREQ= Blockly.Python.valueToCode(block, 'FREQ',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'FREQ');
+    let NUM= Blockly.Python.valueToCode(block, 'NUM',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'NUM');
+    let code
+    
+    code=`esp_pin.analogWrite(icrobot.${portMap[PIN]},${NUM},${FREQ})\n`
+    
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return code;
+    }else{
+        return ''
+    }
+}
+Blockly.Python['robotpin_readDigitalPin']=function(block){
+
+    let PIN=block.getFieldValue('PIN') || 'False';
+    let code
+    
+    code=`esp_pin.digitalRead(icrobot.${portMap[PIN]})`
+    
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+Blockly.Python['robotpin_readAnalogPin']=function(block){
+
+    let PIN=block.getFieldValue('PIN') || 'False';
+    let code
+    
+    code=`esp_pin.analogRead(icrobot.${portMap[PIN]})`
+    
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotpin_setIICPort']=function(block){
+
+    let PORT=block.getFieldValue('PORT') || 'False';
+    
+    let code
+    
+    code=`my_i2c = icrobot.extern_i2c(${PORT})\n`
+    
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return code;
+    }else{
+        return ''
+    }
+}
+Blockly.Python['robotpin_IICScan']=function(block){
+
+
+    let code
+    
+    code=`my_i2c.scan()`
+    
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotpin_IICWriteTo']=function(block){
+
+    let DATA= Blockly.Python.valueToCode(block, 'DATA',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'DATA');
+    let ADDR= Blockly.Python.valueToCode(block, 'ADDR',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'ADDR');
+    
+    let code
+    
+    code=`my_i2c.writeto(${ADDR}, ${DATA})\n`
+    
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return code;
+    }else{
+        return ''
+    }
+}
+Blockly.Python['robotpin_IICWriteToMem']=function(block){
+
+    let DATA= Blockly.Python.valueToCode(block, 'DATA',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'DATA');
+    let ADDR= Blockly.Python.valueToCode(block, 'ADDR',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'ADDR');
+    let MEMADDR= Blockly.Python.valueToCode(block, 'MEMADDR',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'MEMADDR');
+    
+    let code
+    
+    code=`my_i2c.writeto_mem(${ADDR}, ${MEMADDR}, ${DATA})\n`
+    
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return code;
+    }else{
+        return ''
+    }
+}
+Blockly.Python['robotpin_IICReadFrom']=function(block){
+
+    let NBYTES= Blockly.Python.valueToCode(block, 'NBYTES',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'NBYTES');
+    let ADDR= Blockly.Python.valueToCode(block, 'ADDR',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'ADDR');
+    
+    let code
+    
+    code=`my_i2c.readfrom(${ADDR}, ${NBYTES})`
+    
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+Blockly.Python['robotpin_IICReadFromInto']=function(block){
+
+    let BUF= Blockly.Python.valueToCode(block, 'BUF',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'BUF');
+    let ADDR= Blockly.Python.valueToCode(block, 'ADDR',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'ADDR');
+    
+    let code
+    
+    code=`my_i2c.readfrom_into(${ADDR}, ${BUF})`
+    
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotpin_IICReadFromMem']=function(block){
+
+    let NBYTES= Blockly.Python.valueToCode(block, 'NBYTES',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'NBYTES');
+    let ADDR= Blockly.Python.valueToCode(block, 'ADDR',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'ADDR');
+    let MEMADDR= Blockly.Python.valueToCode(block, 'MEMADDR',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'MEMADDR');
+    
+    let code
+    
+    code=`my_i2c.readfrom_mem(${ADDR}, ${MEMADDR}, ${NBYTES})`
+    
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
+Blockly.Python['robotpin_IICReadFromMemInto']=function(block){
+
+    let BUF= Blockly.Python.valueToCode(block, 'BUF',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'BUF');
+    let ADDR= Blockly.Python.valueToCode(block, 'ADDR',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'ADDR');
+    let MEMADDR= Blockly.Python.valueToCode(block, 'MEMADDR',Blockly.Python.ORDER_NONE) || Blockly.Python.statementToCode(block,'MEMADDR');
+    
+    let code
+    
+    code=`my_i2c.readfrom_mem_into(${ADDR}, ${MEMADDR}, ${BUF})`
+    
+    
+
+    
+
+    let parent=block
+    while (parent.getParent()) {
+        parent = parent.getParent();
+    }
+	if(parent.type=='event_when' || parent.type=='procedures_definition'){
+        // Blockly.Python.definitions_['from s4s import *'] = "from s4s import *";
+        return [code,Blockly.Python.ORDER_NONE];
+    }else{
+        return ''
+    }
+}
+
 //键盘按键
 // Blockly.Python['robotimg_keyisdown']=function(block){
 

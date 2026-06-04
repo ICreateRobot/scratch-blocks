@@ -234,7 +234,7 @@ class Gen_compressed(threading.Thread):
     self.gen_blocks("horizontal")
     self.gen_blocks("vertical")
     self.gen_blocks("common")
-    self.gen_generator("python")
+    self.gen_generator("lua")
 
   def gen_generator(self, language):
     target_filename = language + "_compressed.js"
