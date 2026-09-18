@@ -199,7 +199,7 @@ Blockly.Python['MicrobiteIcreateP_ICM_Button'] = function(block) {
 
 //超声波传感器
 Blockly.Python['MicrobiteIcreateP_ICM_UltrasonicWave'] = function(block) {
-    const pinChoice = block.getFieldValue('CHOICE1').substring(1);
+    const pinChoice = block.getFieldValue('CHOICE1');
 
     const pythonCode = `ICM_ult${DICT_UltrasonicWavePin[pinChoice]}.get()`;
     
@@ -574,7 +574,7 @@ Blockly.Python['MicrobiteIcreateP_ICM_OLEDshow'] = function(block) {
     const text = Blockly.Python.valueToCode(block, 'TEXT',Blockly.Python.ORDER_NONE);
     const color = block.getFieldValue('COLOR');
     
-    const pythonCode = `oled_display.set_text(${x}, ${y}, ${text}, ${DICT_OLEDColor[color]})\n`;
+    const pythonCode = `oled_display.set_text(${x}, ${y}, str(${text}), ${DICT_OLEDColor[color]})\n`;
 
     let parent = block;
     while (parent.getParent()) {
