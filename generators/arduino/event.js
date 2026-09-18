@@ -30,3 +30,7 @@ Blockly.Arduino['event_whenarduinobegin'] = function() {
   return code;
 };
 
+Blockly.Arduino['event_when']=function(block){
+
+  return ''
+};
