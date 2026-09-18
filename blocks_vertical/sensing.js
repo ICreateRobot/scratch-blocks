@@ -219,7 +219,7 @@ Blockly.Blocks['sensing_keyup'] = {
    */
   init: function() {
     this.jsonInit({
-      "message0": Blockly.Msg.SENSING_KEYPUP,
+      "message0": Blockly.Msg.SENSING_KEYPUP || "key %1 loosen?",
       "args0": [
         {
           "type": "input_value",

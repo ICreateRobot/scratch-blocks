@@ -233,7 +233,7 @@ Blockly.Blocks['control_wait'] = {
   init: function() {
     this.jsonInit({
       "id": "control_wait",
-      "message0": Blockly.Msg.CONTROL_WAIT,
+      "message0": Blockly.Msg.CONTROL_WAIT_CUSTOM || "wait %1 %2",
       "args0": [
         {
           "type": "input_value",
@@ -244,8 +244,8 @@ Blockly.Blocks['control_wait'] = {
           "type": "field_dropdown",
           "name": "SECOND",
           "options": [
-            [Blockly.Msg.CONTROL_WAIT_SECOND, "s"],
-            [Blockly.Msg.CONTROL_WAIT_MSECOND, "ms"]
+            [Blockly.Msg.CONTROL_WAIT_SECOND || "second", "s"],
+            [Blockly.Msg.CONTROL_WAIT_MSECOND || "millisecond", "ms"]
           ]
         }
       ],

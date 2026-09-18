@@ -202,7 +202,7 @@ Blockly.Blocks['operator_notnone'] = {
    */
   init: function() {
     this.jsonInit({
-      "message0": Blockly.Msg.OPERATORS_NOTNULL,
+      "message0": Blockly.Msg.OPERATORS_NOTNULL || "%1 Non-null",
       "args0": [
         {
           "type": "input_value",
@@ -496,7 +496,7 @@ Blockly.Blocks['operator_Num'] = {
    */
   init: function() {
     this.jsonInit({
-      "message0": Blockly.Msg.OPERATORS_NUM,
+      "message0": Blockly.Msg.OPERATORS_NUM || "Number %1",
       "args0": [
         {
           "type": "input_value",
