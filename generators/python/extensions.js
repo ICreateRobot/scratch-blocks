@@ -645,7 +645,7 @@ Blockly.Python['robotmove_moveDirTime']=function(block){
     speed=speed.replace(/^["']|["']$/g, '');
     time=time.replace(/^["']|["']$/g, '');
 
-    time=Math.abs(Number(time))
+    // time=Math.abs(Number(time))
     let code
 
     if(dir==2){
