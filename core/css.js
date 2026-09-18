@@ -212,7 +212,7 @@ Blockly.Css.CONTENT = [
 
     'position: absolute;',
     'top: 0;',
-    'left: 0;',
+    // 'left: 0;',
     'z-index: 20;',
 
     'width: 0;',

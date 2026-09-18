@@ -96,6 +96,7 @@ Blockly.Toolbox = function(workspace) {
    * @private
    */
   this.triggerIcon_ = null;
+  this.trigger_ = null
 
 };
 
@@ -187,11 +188,24 @@ Blockly.Toolbox.prototype.init = function() {
   var triggerIcon = goog.dom.createDom(goog.dom.TagName.IMG, 'blocklyToolboxTriggerIcon');
 
   triggerIcon.setAttribute('src', Blockly.mainWorkspace.options.pathToMedia + 'hide.svg');
-  triggerIcon.style.right = '-337px';
+  // triggerIcon.style.right = '-337px';
+  if (this.RTL) {
+      trigger.style.right = '0';
+      trigger.style.left = '';
+      triggerIcon.style.left = '-334px';
+  } else {
+      trigger.style.left = '0';
+      trigger.style.right = '';
+      triggerIcon.style.right = '-337px';
+  }
+  if (this.RTL) {
+      triggerIcon.style.transform = 'scaleX(-1)';
+  }
   trigger.appendChild(triggerIcon);
   this.HtmlDiv.parentNode.insertBefore(trigger, this.HtmlDiv);
 
   this.triggerIcon_ = triggerIcon;
+  this.trigger_=trigger
 };
 
 /**
@@ -199,8 +213,20 @@ Blockly.Toolbox.prototype.init = function() {
  * https://res.miaocode.com/slim/Snipaste_2022-06-16_11-24-09-1655349874818.png
  */
 Blockly.Toolbox.prototype.unfoldTrigger = function() {
-  this.triggerIcon_.style.right = '-86px';
+  // this.triggerIcon_.style.right = '-86px';
+  if (this.RTL) {
+      this.trigger_.style.right = '0';
+      this.trigger_.style.left = '';
+      this.triggerIcon_.style.left = '-86px';
+  } else {
+      this.trigger_.style.left = '0';
+      this.trigger_.style.right = '';
+      this.triggerIcon_.style.right = '-86px';
+  }
   this.triggerIcon_.setAttribute('src', Blockly.mainWorkspace.options.pathToMedia + 'show.svg');
+  if (this.RTL) {
+    this.triggerIcon_.style.transform = 'scaleX(-1)';
+  }
 };
 
 /**
@@ -208,8 +234,20 @@ Blockly.Toolbox.prototype.unfoldTrigger = function() {
  * https://res.miaocode.com/slim/Snipaste_2022-06-16_11-24-21-1655349884215.png
  */
 Blockly.Toolbox.prototype.foldTrigger = function() {
-  this.triggerIcon_.style.right = '-337px';
+  // this.triggerIcon_.style.right = '-337px';
+  if (this.RTL) {
+      this.trigger_.style.right = '0';
+      this.trigger_.style.left = '';
+      this.triggerIcon_.style.left = '-334px';
+  } else {
+      this.trigger_.style.left = '0';
+      this.trigger_.style.right = '';
+      this.triggerIcon_.style.right = '-337px';
+  }
   this.triggerIcon_.setAttribute('src', Blockly.mainWorkspace.options.pathToMedia + 'hide.svg');
+  if (this.RTL) {
+    this.triggerIcon_.style.transform = 'scaleX(-1)';
+  }
 };
 
 /**
