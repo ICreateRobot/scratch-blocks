@@ -67,3 +67,5 @@ Blockly.Python['numres0D100'] = Blockly.Python['math_number'];
 Blockly.Python['numresD360D360'] = Blockly.Python['math_number'];
 Blockly.Python['numresD32400D32400'] = Blockly.Python['math_number'];
 Blockly.Python['numres0D65535'] = Blockly.Python['math_number'];
+Blockly.Python['numres0D3'] = Blockly.Python['math_number'];
+Blockly.Python['numres0D12'] = Blockly.Python['math_number'];
