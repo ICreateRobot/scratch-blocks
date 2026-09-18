@@ -44,6 +44,7 @@ Blockly.Msg.CONTROL_STOP_THIS = 'this script';
 Blockly.Msg.CONTROL_STOP_OTHER = 'other scripts in sprite';
 Blockly.Msg.CONTROL_WAIT = 'wait %1 seconds';
 Blockly.Msg.CONTROL_WAIT= "wait %1 %2";
+Blockly.Msg.CONTROL_WAIT_CUSTOM= "wait %1 %2";
 Blockly.Msg.CONTROL_WAIT_SECOND="second";
 Blockly.Msg.CONTROL_WAIT_MSECOND="millisecond";
 Blockly.Msg.CONTROL_WAITUNTIL = 'wait until %1';
